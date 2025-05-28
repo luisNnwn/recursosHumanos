@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Empleados</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+    <h3>Gestión de Empleados</h3>
+    <a class="btn btn-success mb-3" th:href="@{/empleados/nuevo}">Registrar nuevo empleado</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Dirección</th><th>Fecha Ingreso</th>
+            <th>Cargo</th><th>Salario</th><th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="empleado : ${empleados}">
+            <td th:text="${empleado.nombre + ' ' + empleado.apellido}"></td>
+            <td th:text="${empleado.correo}"></td>
+            <td th:text="${empleado.telefono}"></td>
+            <td th:text="${empleado.direccion}"></td>
+            <td th:text="${empleado.fechaIngreso}"></td>
+            <td th:text="${empleado.cargo}"></td>
+            <td th:text="${empleado.salario}"></td>
+            <td>
+                <a th:href="@{'/empleados/editar/' + ${empleado.id}}" class="btn btn-primary btn-sm">Editar</a>
+                <a th:href="@{'/empleados/eliminar/' + ${empleado.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

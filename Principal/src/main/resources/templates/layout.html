@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$CONTENT_TITLE - RRHH">RRHH</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .sidebar {
+            width: 240px;
+            background-color: #1c2b4a;
+            color: white;
+            padding: 20px;
+        }
+        .sidebar h4 {
+            color: #f1f1f1;
+            margin-bottom: 30px;
+        }
+        .sidebar a {
+            color: #ddd;
+            display: block;
+            padding: 10px 0;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #2d3e5e;
+            border-radius: 5px;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background-color: white;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="d-flex flex-column bg-dark text-white vh-100" style="width: 250px;">
+        <div class="p-3">
+            <h4 class="fw-bold">RRHH</h4>
+            <ul class="nav flex-column mt-4">
+                <li class="nav-item">
+                    <a href="/dashboard" class="nav-link text-white">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/empleados" class="nav-link text-white">
+                        <i class="bi bi-people-fill me-2"></i> Empleados
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/asistencias" class="nav-link text-white">
+                        <i class="bi bi-clock-history me-2"></i> Asistencia
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/permisos" class="nav-link text-white">
+                        <i class="bi bi-card-checklist me-2"></i> Permisos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/evaluaciones" class="nav-link text-white">
+                        <i class="bi bi-clipboard2-check me-2"></i> Evaluaciones
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/nomina" class="nav-link text-white">
+                        <i class="bi bi-cash-stack me-2"></i> Nómina
+                    </a>
+                </li>
+            </ul>
+        </div>
+    
+        <!-- Cerrar sesión al fondo -->
+        <div class="mt-auto p-3">
+            <a href="/logout" class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center">
+                <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+            </a>
+        </div>
+    </div>
+    
+
+
+<div class="main-content">
+    <div class="header">
+        <h5 layout:title="">Panel</h5>
+        <span>Admin</span>
+    </div>
+    <div class="page-content" layout:fragment="contenido">
+        <!-- Aquí se insertan los contenidos -->
+    </div>
+</div>
+
+</body>
+</html>

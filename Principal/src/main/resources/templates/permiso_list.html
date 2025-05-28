@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head><title>Lista de Permisos</title></head>
+<body>
+<div layout:fragment="contenido">
+    <h2>Lista de Permisos</h2>
+    <a class="btn btn-success mb-3" th:href="@{/permisos/nuevo}">Solicitar Permiso</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Empleado</th>
+                <th>Tipo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Motivo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${permisos}">
+                <td th:text="${p.empleado != null ? p.empleado.nombre + ' ' + p.empleado.apellido : 'N/A'}"></td>
+                <td th:text="${p.tipo}"></td>
+                <td th:text="${p.fechaInicio}"></td>
+                <td th:text="${p.fechaFin}"></td>
+                <td th:text="${p.motivo}"></td>
+                <td th:text="${p.estado}"></td>
+                <td>
+                    <a th:href="@{'/permisos/eliminar/' + ${p.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+                    <span th:if="${p.estado == 'Pendiente'}">
+                        <a th:href="@{'/permisos/aprobar/' + ${p.id}}" class="btn btn-success btn-sm ms-1">Aprobar</a>
+                        <a th:href="@{'/permisos/rechazar/' + ${p.id}}" class="btn btn-warning btn-sm ms-1">Rechazar</a>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

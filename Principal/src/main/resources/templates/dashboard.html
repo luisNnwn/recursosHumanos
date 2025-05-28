@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 300px;
+            max-width: 100%;
+            margin: auto;
+        }
+        canvas {
+            max-height: 100%;
+            max-width: 100%;
+            width: 100% !important;
+            height: auto !important;
+        }
+        .bottom-chart {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+        }
+        .bottom-chart .chart-container {
+            width: 100%;
+            max-width: 800px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="contenido">
+    <h2 class="mb-4">Dashboard de Recursos Humanos</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h5 class="text-center">Permisos por Estado</h5>
+            <div class="chart-container">
+                <canvas id="permisosChart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h5 class="text-center">Top 5 Empleados Mejor Evaluados</h5>
+            <div class="chart-container">
+                <canvas id="evaluacionesChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-chart">
+        <div class="chart-container">
+            <h5 class="text-center">Asistencias por Día (Últimos 7 días)</h5>
+            <canvas id="asistenciasChart"></canvas>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        const permisosLabels = /*[[${permisosPorEstado.keySet()}]]*/ [];
+        const permisosData = /*[[${permisosPorEstado.values()}]]*/ [];
+        new Chart(document.getElementById('permisosChart'), {
+            type: 'pie',
+            data: {
+                labels: permisosLabels,
+                datasets: [{
+                    data: permisosData,
+                    backgroundColor: ['#4CAF50', '#FFC107', '#F44336']
+                }]
+            }
+        });
+
+        const evalLabels = /*[[${topEvaluados.keySet()}]]*/ [];
+        const evalData = /*[[${topEvaluados.values()}]]*/ [];
+        new Chart(document.getElementById('evaluacionesChart'), {
+            type: 'bar',
+            data: {
+                labels: evalLabels,
+                datasets: [{
+                    label: 'Promedio',
+                    data: evalData,
+                    backgroundColor: '#42A5F5'
+                }]
+            }
+        });
+
+        const asistLabels = /*[[${asistenciasPorDia.keySet()}]]*/ [];
+        const asistData = /*[[${asistenciasPorDia.values()}]]*/ [];
+        new Chart(document.getElementById('asistenciasChart'), {
+            type: 'line',
+            data: {
+                labels: asistLabels,
+                datasets: [{
+                    label: 'Asistencias',
+                    data: asistData,
+                    fill: true,
+                    borderColor: '#9C27B0',
+                    backgroundColor: 'rgba(156, 39, 176, 0.2)'
+                }]
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

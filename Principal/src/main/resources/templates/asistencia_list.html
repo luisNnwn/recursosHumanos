@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Asistencias</title>
+</head>
+<body>
+<div layout:fragment="contenido">
+    <h3>Control de Asistencias</h3>
+    <div class="mb-3">
+        <a class="btn btn-success me-2" th:href="@{/asistencias/entrada}">Registrar Entrada</a>
+        <a class="btn btn-primary" th:href="@{/asistencias/salida}">Registrar Salida</a>
+    </div>
+
+    <h5>Entradas sin registrar hora de salida</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Empleado</th>
+                <th>Fecha</th>
+                <th>Hora Entrada</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="a : ${asistenciasSinSalida}">
+                <td th:text="${a.empleado.nombre + ' ' + a.empleado.apellido}"></td>
+                <td th:text="${a.fecha}"></td>
+                <td th:text="${a.horaEntrada}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5>Asistencias Completadas</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Empleado</th>
+                <th>Fecha</th>
+                <th>Hora Entrada</th>
+                <th>Hora Salida</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="a : ${asistenciasCompletas}">
+                <td th:text="${a.empleado.nombre + ' ' + a.empleado.apellido}"></td>
+                <td th:text="${a.fecha}"></td>
+                <td th:text="${a.horaEntrada}"></td>
+                <td th:text="${a.horaSalida}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

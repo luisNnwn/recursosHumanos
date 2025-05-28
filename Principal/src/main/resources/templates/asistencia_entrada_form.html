@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head><title>Registrar Entrada</title></head>
+<body>
+<div layout:fragment="contenido">
+    <h3>Registrar Hora de Entrada</h3>
+    <form th:action="@{/asistencias/guardarEntrada}" method="post" class="card p-4 shadow-sm">
+        <div class="mb-3">
+            <label class="form-label">Empleado</label>
+            <select class="form-select" name="empleadoId" required>
+                <option th:each="emp : ${empleados}" th:value="${emp.id}"
+                        th:text="${emp.nombre} + ' ' + ${emp.apellido}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Entrada</button>
+        <a th:href="@{/asistencias}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

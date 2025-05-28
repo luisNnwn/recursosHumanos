@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Empleado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            max-width: 700px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h3 class="mb-4">Registrar Empleado</h3>
+    <form id="empleadoForm" novalidate>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" required>
+        </div>
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido:</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" required>
+        </div>
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo:</label>
+            <input type="email" class="form-control" id="correo" name="correo" required>
+        </div>
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input type="text" class="form-control" id="telefono" name="telefono" pattern="^[0-9]+$" required>
+        </div>
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" required>
+        </div>
+        <div class="mb-3">
+            <label for="fechaIngreso" class="form-label">Fecha de Ingreso:</label>
+            <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso" required>
+        </div>
+        <div class="mb-3">
+            <label for="cargo" class="form-label">Cargo:</label>
+            <input type="text" class="form-control" id="cargo" name="cargo" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$" required>
+        </div>
+        <div class="mb-3">
+            <label for="salario" class="form-label">Salario:</label>
+            <input type="text" class="form-control" id="salario" name="salario" pattern="^[0-9]+(\.[0-9]{1,2})?$" required>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById('empleadoForm');
+    const fechaIngreso = document.getElementById('fechaIngreso');
+    const hoy = new Date().toISOString().split('T')[0];
+    fechaIngreso.value = hoy;
+    fechaIngreso.setAttribute('min', hoy);
+    fechaIngreso.setAttribute('max', hoy);
+
+    form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+    }, false);
+</script>
+</body>
+</html>

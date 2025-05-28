@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head><title>Evaluaciones de Desempeño</title></head>
+<body>
+<div layout:fragment="contenido">
+    <h2>Evaluaciones de Desempeño</h2>
+    <a class="btn btn-success mb-3" th:href="@{/evaluaciones/nueva}">Registrar Evaluación</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Empleado</th>
+                <th>Fecha</th>
+                <th>Evaluador</th>
+                <th>Puntuación</th>
+                <th>Observaciones</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="e : ${evaluaciones}">
+                <td th:text="${e.empleado.nombre} + ' ' + ${e.empleado.apellido}"></td>
+                <td th:text="${e.fecha}"></td>
+                <td th:text="${e.evaluador}"></td>
+                <td th:text="${e.puntuacion}"></td>
+                <td th:text="${e.observaciones}"></td>
+                <td>
+                    <a th:href="@{'/evaluaciones/eliminar/' + ${e.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Solicitud de Permiso</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fechaInicio = document.getElementById("fechaInicio");
+            const fechaFin = document.getElementById("fechaFin");
+            const form = document.getElementById("formPermiso");
+
+            const hoy = new Date().toISOString().split("T")[0];
+            fechaInicio.setAttribute("min", hoy);
+            fechaFin.setAttribute("min", hoy);
+
+            fechaInicio.addEventListener("change", () => {
+                fechaFin.setAttribute("min", fechaInicio.value || hoy);
+            });
+
+            form.addEventListener("submit", function (e) {
+                const inicio = fechaInicio.value;
+                const fin = fechaFin.value;
+
+                if (inicio < hoy) {
+                    alert("La fecha de inicio no puede ser menor a hoy.");
+                    e.preventDefault();
+                } else if (fin < inicio) {
+                    alert("La fecha de fin no puede ser menor que la de inicio.");
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="contenido">
+    <h2>Solicitud de Permiso</h2>
+    <form id="formPermiso" th:action="@{/permisos/guardar}" th:object="${permiso}" method="post" class="card p-4 shadow-sm">
+        <div class="mb-3">
+            <label class="form-label">Empleado</label>
+            <select class="form-select" th:field="*{empleado}" required>
+                <option th:each="emp : ${empleados}" th:value="${emp.id}" th:text="${emp.nombre} + ' ' + ${emp.apellido}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tipo</label>
+            <input type="text" class="form-control" th:field="*{tipo}" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha Inicio</label>
+            <input type="date" id="fechaInicio" class="form-control" th:field="*{fechaInicio}" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha Fin</label>
+            <input type="date" id="fechaFin" class="form-control" th:field="*{fechaFin}" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Motivo</label>
+            <textarea class="form-control" th:field="*{motivo}" rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
+        <a th:href="@{/permisos}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>
